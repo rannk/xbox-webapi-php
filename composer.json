@@ -1,0 +1,25 @@
+{
+    "name": "rannk/xbox-webapi-php",
+    "description": "PHP wrapper for the xbox live API.",
+    "type": "library",
+    "keywords": ["xbox", "xbox-live", "xbox-webapi"],
+    "license": "MIT",
+    "require": {
+        "php": "^7.3",
+        "guzzlehttp/guzzle": "^7.5"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "Rannk\\XboxWebapiPhp\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "rannkdeng",
+            "email": "rannk@163.com"
+        }
+    ]
+}
