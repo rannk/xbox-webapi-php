@@ -41,7 +41,7 @@ class Client
         $this->refresh_token = $content['refresh_token'];
         $content = json_decode($this->requestUserToken($content['access_token']), true);
         $content = json_decode($this->requestXstsToken($content['Token']), true);
-        $xboxUser = new XboxUser($content['DisplayClaims']['xui'][0]['xid'], $content['DisplayClaims']['xui'][0]['uhs'], $content['Token']);
+        $xboxUser = new XboxUser($content['DisplayClaims']['xui'][0]['xid'], $content['DisplayClaims']['xui'][0]['uhs'] . ";" .$content['Token']);
         return $xboxUser;
     }
 
@@ -53,6 +53,22 @@ class Client
         $data['code'] = $code;
         $data['scope'] = implode(" ", self::DEFAULT_SCOPES);
         $data['redirect_uri'] = $this->callback_url;
+
+        $guzzleClient = new GuzzleClient();
+        $response = $guzzleClient->post("https://login.live.com/oauth20_token.srf",[
+            'form_params' => $data
+        ]);
+
+        return $response->getBody()->getContents();
+    }
+
+    public function refreshOauth2TokenRequest($refresh_token)
+    {
+        $data['client_id'] = $this->client_id;
+        $data['client_secret'] = $this->client_secret;
+        $data['grant_type'] = 'refresh_token';
+        $data['scope'] = implode(" ", self::DEFAULT_SCOPES);
+        $data['refresh_token'] = $refresh_token;
 
         $guzzleClient = new GuzzleClient();
         $response = $guzzleClient->post("https://login.live.com/oauth20_token.srf",[

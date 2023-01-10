@@ -7,10 +7,10 @@ class HttpClient extends Client
 {
     protected $xboxHeaders;
 
-    public function __construct($uhs, $token, array $config = [])
+    public function __construct($token, array $config = [])
     {
         $this->xboxHeaders = [
-            "Authorization" => "XBL3.0 x=" . $uhs . ";" . $token
+            "Authorization" => "XBL3.0 x=" . $token
         ];
         parent::__construct($config);
     }

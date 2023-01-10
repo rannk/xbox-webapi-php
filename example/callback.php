@@ -17,7 +17,6 @@ $xboxClient = new xboxClient($client_id, $client_secret, $callback_url);
 $xBoxUser = $xboxClient->callbackLogin($code);
 
 $ret['xuid'] = $xBoxUser->getXuid();
-$ret['uhs'] = $xBoxUser->getUhs();
 $ret['token'] = $xBoxUser->getToken();
 $ret['refresh_token'] = $xboxClient->getRefreshToken();
 

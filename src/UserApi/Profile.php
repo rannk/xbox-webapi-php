@@ -16,7 +16,8 @@ class Profile extends HttpClient
                 "GameDisplayName",
                 "GameDisplayPicRaw",
                 "Gamerscore",
-                "Gamertag"
+                "Gamertag",
+                "TenureLevel"
             ]
         ];
 

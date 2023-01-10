@@ -8,10 +8,9 @@ use Rannk\XboxWebapiPhp\XboxUser as XboxUser;
 
 // 这些参数信息可以通过 callback回调例子获取到
 $xuid = "";
-$uhs = "";
 $token = "";
 
-$xboxUser = new XboxUser($xuid, $uhs, $token);
+$xboxUser = new XboxUser($xuid, $token);
 
 // 用户成就
 if($_GET['m'] == "ache"){

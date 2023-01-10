@@ -7,23 +7,17 @@ use Rannk\XboxWebapiPhp\UserApi\Profile;
 
 class XboxUser
 {
-    private $xuid, $uhs, $token;
+    private $xuid, $token;
 
-    public function __construct($xuid, $uhs, $access_token)
+    public function __construct($xuid, $access_token)
     {
         $this->xuid = $xuid;
-        $this->uhs = $uhs;
         $this->token = $access_token;
     }
 
     public function getXuid()
     {
         return $this->xuid;
-    }
-
-    public function getUhs()
-    {
-        return $this->uhs;
     }
 
     public function getToken()
@@ -39,7 +33,7 @@ class XboxUser
     public function achievements($xuid = "")
     {
         $xuid = empty($xuid)?$this->xuid:$xuid;
-        $ache = new Achievements($this->uhs, $this->token);
+        $ache = new Achievements($this->token);
         return $ache->getContent($xuid);
     }
 
@@ -51,7 +45,7 @@ class XboxUser
     public function profile($xuids = [])
     {
         $xuids = empty($xuids)?[$this->xuid]:$xuids;
-        $profile = new Profile($this->uhs, $this->token);
+        $profile = new Profile($this->token);
         return $profile->getContent($xuids);
     }
 
@@ -63,7 +57,7 @@ class XboxUser
     public function people($xuid = "")
     {
         $xuid = empty($xuid)?$this->xuid:$xuid;
-        $ache = new People($this->uhs, $this->token);
+        $ache = new People($this->token);
         return $ache->getPeople($xuid);
     }
 }
