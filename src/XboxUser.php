@@ -38,6 +38,18 @@ class XboxUser
     }
 
     /**
+     * 用户成就相关的游戏历史记录
+     * @param string $xuid
+     * @return string
+     */
+    public function achievementsHistory($xuid = "")
+    {
+        $xuid = empty($xuid)?$this->xuid:$xuid;
+        $ache = new Achievements($this->token);
+        return $ache->getHistory($xuid);
+    }
+
+    /**
      * 获取用户基本资料
      * @param string $xuid
      * @return string
