@@ -1,18 +1,26 @@
 <?php
 namespace Rannk\XboxWebapiPhp;
-
-use Rannk\XboxWebapiPhp\UserApi\Achievements;
-use Rannk\XboxWebapiPhp\UserApi\People;
-use Rannk\XboxWebapiPhp\UserApi\Profile;
+use Rannk\XboxWebapiPhp\UserApi\LoadApi;
 
 class XboxUser
 {
     private $xuid, $token;
 
+    protected $_prop;
+
     public function __construct($xuid, $access_token)
     {
         $this->xuid = $xuid;
         $this->token = $access_token;
+        $loadApi = new LoadApi();
+        $this->_prop = $loadApi->setProp($this->token);
+    }
+
+    public function __get($name)
+    {
+        if(isset($this->_prop[$name])){
+            return $this->_prop[$name];
+        }
     }
 
     public function getXuid()
@@ -33,8 +41,7 @@ class XboxUser
     public function achievements($xuid = "")
     {
         $xuid = empty($xuid)?$this->xuid:$xuid;
-        $ache = new Achievements($this->token);
-        return $ache->getContent($xuid);
+        return $this->Achievements->getContent($xuid);
     }
 
     /**
@@ -45,8 +52,7 @@ class XboxUser
     public function achievementsHistory($xuid = "")
     {
         $xuid = empty($xuid)?$this->xuid:$xuid;
-        $ache = new Achievements($this->token);
-        return $ache->getHistory($xuid);
+        return $this->Achievements->getHistory($xuid);
     }
 
     /**
@@ -57,8 +63,7 @@ class XboxUser
     public function profile($xuids = [])
     {
         $xuids = empty($xuids)?[$this->xuid]:$xuids;
-        $profile = new Profile($this->token);
-        return $profile->getContent($xuids);
+        return $this->Profile->getContent($xuids);
     }
 
     /**
@@ -69,7 +74,6 @@ class XboxUser
     public function people($xuid = "")
     {
         $xuid = empty($xuid)?$this->xuid:$xuid;
-        $ache = new People($this->token);
-        return $ache->getPeople($xuid);
+        return $this->People->getPeople($xuid);
     }
 }
